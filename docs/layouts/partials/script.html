@@ -1,0 +1,18 @@
+<script src="/assets/bootstrap/js/bootstrap.js"></script>
+<script src="/assets/vue.js"></script>
+<script src="/dist/vue-bootstrap-table.min.js"></script>
+<script>
+$(function () {
+    if (location.pathname.indexOf('/examples') !== 0) {
+        return;
+    }
+    $('pre code').each(function () {
+        var $this = $(this);
+        if ($this.hasClass('language-html')) {
+            $('#body-inner h1').after($this.text());
+        } else if ($this.hasClass('language-javascript')) {
+            eval($this.text());
+        }
+    });
+});
+</script>

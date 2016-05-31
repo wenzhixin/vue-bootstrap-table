@@ -1,0 +1,13 @@
+baseURL = "http://vue-bootstrap-table.wenzhixin.net.cn"
+languageCode = "en-us"
+title = "Vue Bootstrap Table"
+theme = "hugo-theme-learn"
+metaDataFormat = "yaml"
+canonifyUrls = true
+disablePathToLower = true
+
+[params]
+  editURL = "https://github.com/wenzhixin/vue-bootstrap-table/master/docs/content/"
+  description = "Documentation for Vue Bootstrap Table"
+  author = "Wen Zhixin"
+  showVisitedLinks = true
