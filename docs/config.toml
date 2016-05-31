@@ -7,7 +7,7 @@ canonifyUrls = true
 disablePathToLower = true
 
 [params]
-  editURL = "https://github.com/wenzhixin/vue-bootstrap-table/master/docs/content/"
+  editURL = "https://github.com/wenzhixin/vue-bootstrap-table/blob/develop/docs/content/"
   description = "Documentation for Vue Bootstrap Table"
   author = "Wen Zhixin"
   showVisitedLinks = true
