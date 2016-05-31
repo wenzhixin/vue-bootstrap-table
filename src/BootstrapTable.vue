@@ -154,7 +154,7 @@
                                                 {{columns[i].title}}
                                             </span>
                                             <span class="value">
-                                                {{{item | getItemField field options.escape options.undefinedText}}}
+                                                {{{item[field]}}}
                                             </span>
                                         </div>
                                     </template>
@@ -172,7 +172,7 @@
                                             v-bind:type="columns[i].checkbox ? 'checkbox' : 'radio'">
                                     </td>
                                     <td v-else>
-                                        {{{item | getItemField field options.escape options.undefinedText}}}
+                                        {{{item[field]}}}
                                     </td>
                                 </template>
                             </template>
@@ -553,6 +553,7 @@ var BootstrapTable = {
         return {
             data: {},
             columns: {},
+            header: {},
             pageFrom: 1,
             pageTo: 1,
             totalPages: 0,
@@ -605,6 +606,15 @@ var BootstrapTable = {
                 }
                 item.style = style;
                 item.csses = csses;
+
+                that.header.fields.forEach(function (field, j) {
+                    var value = getItemField(item, field, that.options.escape),
+                        column = that.columns[j];
+
+                    value = calculateObjectValue(column,
+                        that.header.formatters[j], [value, item, i], value);
+                    item[field] = value;
+                });
             });
             this.$nextTick(function () {
                 var $el = $(this.$el);
@@ -1163,9 +1173,6 @@ var BootstrapTable = {
             name += '.bs.table';
             console.log(name, args);
         }
-    },
-    filters: {
-        getItemField: getItemField
     }
 };
 
