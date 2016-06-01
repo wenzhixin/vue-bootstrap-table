@@ -1,10 +1,124 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0; url=/documentation"/>
-</style>
-  </head>
-  <body>
-  </body>
+
+<head>
+    <meta charset="utf-8"> {{ partial "meta.html" . }} {{ partial "favicon.html" . }} {{ .Scratch.Add "title" "" }}{{ if isset .Site.Data.titles .Title }}{{ .Scratch.Set "title" (index .Site.Data.titles .Title).title }}{{ else }}{{ .Scratch.Set "title" .Title}}{{end}}
+    <title>{{ .Scratch.Get "title" }}</title>
+    {{ partial "style.html" . }}
+    <link href="/css/nucleus.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/hybrid.css" rel="stylesheet">
+    <link href="/css/featherlight.min.css" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.css" rel="stylesheet">
+    <link href="/css/hugo-theme.css" rel="stylesheet">
+    <style>
+        .ml20 {
+            margin-left: 20px;
+        }
+    </style>
+    <script type="text/javascript">
+    if (window!=top) // 判断当前的window对象是否是top对象
+        top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+    </script>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <bootstrap-table :options="options">
+            <div>
+                <a href="https://github.com/wenzhixin/vue-bootstrap-table" target="_blank">GitHub</a>
+                <a class="ml20" href="/documentation" target="_blank">Documentation</a>
+                <a class="ml20" href="/examples" target="_blank">Examples</a>
+            </div>
+        </bootstrap-table>
+    </div>
+
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.js"></script>
+    <script src="assets/vue.js"></script>
+    <script src="/dist/vue-bootstrap-table.js"></script>
+    <script>
+        window.vm = new Vue({
+            el: '#app',
+            components: {
+                'bootstrap-table': BootstrapTable
+            },
+            data: {
+                options: {
+                    pagination: true,
+                    showPaginationSwitch: true,
+                    showRefresh: true,
+                    showToggle: true,
+                    showColumns: true,
+                    search: true,
+                    clickToSelect: true,
+                    maintainSelected: true,
+                    minimumCountColumns: 2,
+                    url: '/json/data1.json',
+                    columns: [
+                        [{
+                            field: 'state',
+                            checkbox: true,
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle'
+                        }, {
+                            title: 'Item ID',
+                            field: 'id',
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true
+                        }, {
+                            title: 'Item Detail',
+                            colspan: 3,
+                            align: 'center'
+                        }],
+                        [{
+                            field: 'name',
+                            title: 'Item Name',
+                            sortable: true,
+                            editable: true,
+                            align: 'center'
+                        }, {
+                            field: 'price',
+                            title: 'Item Price',
+                            sortable: true,
+                            align: 'center'
+                        }, {
+                            field: 'operate',
+                            title: 'Item Operate',
+                            align: 'center',
+                            clickToSelect: false,
+                            events: {
+                                'click .like': function(e, value, row, index) {
+                                    alert('You click like action, row: ' + JSON.stringify(row));
+                                },
+                                'click .remove': function(e, value, row, index) {
+                                    $table.bootstrapTable('remove', {
+                                        field: 'id',
+                                        values: [row.id]
+                                    });
+                                }
+                            },
+                            formatter: function(value, row, index) {
+                                return [
+                                    '<a class="like" href="javascript:void(0)" title="Like">',
+                                    '<i class="glyphicon glyphicon-heart"></i>',
+                                    '</a>  ',
+                                    '<a class="remove" href="javascript:void(0)" title="Remove">',
+                                    '<i class="glyphicon glyphicon-remove"></i>',
+                                    '</a>'
+                                ].join('');
+                            }
+                        }]
+                    ]
+                }
+            }
+        });
+    </script>
+    <script async defer src="//wenzhixin.net.cn/js/analytics.js"></script>
+</body>
+
 </html>

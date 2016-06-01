@@ -3,7 +3,7 @@
   "description": "A Vue.js component implementing bootstrap-table.",
   "author": "zhixin <wenzhixin2010@gmail.com>",
   "scripts": {
-    "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o docs/static/dist/vue-bootstrap-table.min.js",
+    "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o docs/static/dist/vue-bootstrap-table.js",
     "serve": "http-server -c 1 -p 3000 -a localhost",
     "dev": "npm-run-all --parallel watchify serve",
     "build-dist": "cross-env NODE_ENV=production browserify src/main.js > dist/vue-bootstrap-table.js",
