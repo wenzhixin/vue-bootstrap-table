@@ -73,7 +73,7 @@
                                 v-on:click="onSort(column)"
                                 v-on:keypress.enter="onSort(column)">
                                 <template v-if="column.checkbox">
-                                <input name="btSelectAll" type="checkbox">
+                                <input name="btSelectAll" type="checkbox" v-model="selected.all" v-on:change="onCheckAllChange">
                                 </template>
                                 <template v-if="!column.checkbox && !column.radio">
                                 {{column.title}}
@@ -115,7 +115,7 @@
                                 v-on:click="onSort(column)"
                                 v-on:keypress.enter="onSort(column)">
                                 <template v-if="column.checkbox">
-                                <input name="btSelectAll" type="checkbox">
+                                <input name="btSelectAll" type="checkbox" v-model="selected.all" v-on:change="onCheckAllChange">
                                 </template>
                                 <template v-if="!column.checkbox && !column.radio">
                                 {{column.title}}
@@ -127,9 +127,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in renderData"
+                    <tr v-for="(i, item) in renderData"
                         v-bind:class="class"
-                        data-index="{{$index}}"
                         data-uniqueid="{{item[options.uniqueId]}}">
 
                         <template v-if="!options.cardView && options.detailView">
@@ -143,15 +142,17 @@
                         <template v-if="options.cardView">
                         <td colspan="{{header.fields.length}}">
                             <div class="card-views">
-                                <div v-for="(i, field) in header.fields" class="card-view"
-                                    v-bind:class="columns[i].class">
-                                    <template v-if="!(!columns[i].visible || options.cardView && !columns[i].cardVisible)">
-                                        <input v-if="columns[i].checkbox || columns[i].radio"
+                                <div v-for="(j, field) in header.fields" class="card-view"
+                                    v-bind:class="columns[j].class">
+                                    <template v-if="!(!columns[j].visible || options.cardView && !columns[j].cardVisible)">
+                                        <input v-if="columns[j].checkbox || columns[j].radio"
                                             name="{{options.selectItemName}}"
-                                            v-bind:type="columns[i].checkbox ? 'checkbox' : 'radio'">
+                                            v-bind:value="item" v-model="selected.items"
+                                            v-on:change="onCheckItemChange(item)"
+                                            v-bind:type="columns[j].checkbox ? 'checkbox' : 'radio'">
                                         <div v-else class="card-view">
                                             <span v-if="options.showHeader" class="title">
-                                                {{columns[i].title}}
+                                                {{columns[j].title}}
                                             </span>
                                             <span class="value">
                                                 {{{item[field]}}}
@@ -164,14 +165,18 @@
                         </template>
 
                         <template v-else>
-                            <template v-for="(i, field) in header.fields">
-                                <template v-if="!(!columns[i].visible || options.cardView && !columns[i].cardVisible)">
-                                    <td v-if="columns[i].checkbox || columns[i].radio"
-                                        class="bs-checkbox %s" v-bind:class="columns[i].class">
+                            <template v-for="(j, field) in header.fields">
+                                <template v-if="!(!columns[j].visible || options.cardView && !columns[j].cardVisible)">
+                                    <td v-if="columns[j].checkbox || columns[j].radio"
+                                        class="bs-checkbox" v-bind:class="columns[j].class">
                                         <input name="{{options.selectItemName}}"
-                                            v-bind:type="columns[i].checkbox ? 'checkbox' : 'radio'">
+                                        v-bind:value="item" v-model="selected.items"
+                                        v-on:change="onCheckItemChange(item)"
+                                        v-bind:type="columns[j].checkbox ? 'checkbox' : 'radio'">
                                     </td>
-                                    <td v-else>
+                                    <td v-else
+                                        v-on:click="onTdClick(item, columns[j].field, $event)"
+                                        v-on:dblclick="onTdClick(item, columns[j].field, $event)">
                                         {{{item[field]}}}
                                     </td>
                                 </template>
@@ -378,6 +383,18 @@ var getItemField = function (item, field, escape, undefinedText) {
     return (escape ? escapeHTML(value) : value) || undefinedText;
 };
 
+var checkAllIndexOf = function (type, items, data, from, to) {
+    if (type === 'radio') {
+        return false;
+    }
+    for (var i = from; i < to; i++) {
+        if (items.indexOf(data[i]) === -1) {
+            return false;
+        }
+    }
+    return true;
+};
+
 var DEFAULTS = {
     columns: [[]],
     data: [],
@@ -559,6 +576,11 @@ var BootstrapTable = {
             totalPages: 0,
             searchText: '',
             loading: false,
+            selected: {
+                type: '',
+                all: false,
+                items: []
+            },
             view: {
                 headerHeight: 0
             }
@@ -616,6 +638,14 @@ var BootstrapTable = {
                     item[field] = value;
                 });
             });
+
+            if (!this.options.maintainSelected) {
+                this.selected.all = false;
+                this.selected.items = [];
+            } else {
+                this.selected.all = checkAllIndexOf(this.selected.type,
+                    this.selected.items, this.data, this.pageFrom - 1, this.pageTo);
+            }
             this.$nextTick(function () {
                 var $el = $(this.$el);
                 that.view.headerHeight = $el.find('thead:visible').height();
@@ -779,6 +809,7 @@ var BootstrapTable = {
                     }
 
                     if (column.checkbox || column.radio) {
+                        that.selected.type = column.checkbox ? 'checkbox' : 'radio';
                         that.header.stateField = column.field;
                     }
                 });
@@ -1067,6 +1098,49 @@ var BootstrapTable = {
             if (!this.options.pagination || this.options.sidePagination === 'server') {
                 this.pageFrom = 1;
                 this.pageTo = this.data.length;
+            }
+        },
+        onCheckAllChange: function () {
+            var items = [];
+            if (this.selected.all) {
+                for (var i = this.pageFrom - 1; i < this.pageTo; i++) {
+                    items.push(this.data[i]);
+                }
+            }
+            this.selected.items = items;
+            this.trigger(this.selected.all ? 'check-all' : 'uncheck-all');
+        },
+        onCheckItemChange: function (item) {
+            this.selected.all = checkAllIndexOf(this.selected.type,
+                this.selected.items, this.data, this.pageFrom - 1, this.pageTo);
+
+            if (this.selected.type === 'radio') {
+                this.trigger('check', item);
+            } else {
+                this.trigger(this.selected.items.indexOf(item) > - 1 ?
+                    'check' : 'uncheck', item);
+            }
+        },
+        onTdClick: function (item, field, e) {
+            var column = this.columns[getFieldIndex(this.columns, field)],
+                value = getItemField(item, field, this.options.escape);
+
+            this.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item);
+            this.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, field);
+
+            // if click to select - then trigger the checkbox/radio click
+            if (e.type === 'click' && this.options.clickToSelect && column.clickToSelect) {
+                if (this.selected.type === 'radio') {
+                    this.selected.items = item;
+                } else {
+                    var index = this.selected.items.indexOf(item);
+                    if (index > -1) {
+                        this.selected.items.splice(index, 1);
+                    } else {
+                        this.selected.items.push(item);
+                    }
+                }
+                this.onCheckItemChange(item);
             }
         },
         initServer: function (silent, query, url) {
