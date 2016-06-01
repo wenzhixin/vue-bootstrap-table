@@ -4,7 +4,9 @@ Vue Bootstrap Table is a Vue.js component implementing [bootstrap-table](https:/
 
 **Vue Bootstrap Table is licensed under the The MIT License. Completely free, you can arbitrarily use and modify this plugin. If this plugin is useful to you, you can give me a [star](https://github.com/wenzhixin/vue-bootstrap-table/), and I will do better, thanks.**
 
-*Current version: 1.0.0*
+*Current version: developing*
+
+I am trying on implementing [bootstrap-table](https://github.com/wenzhixin/bootstrap-table) to Vue.js component, if you have any suggestions you can create a new [issue](https://github.com/wenzhixin/vue-bootstrap-table/issues/new), thanks.
 
 ## Requirements
 
