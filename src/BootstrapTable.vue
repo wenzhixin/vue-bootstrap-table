@@ -1250,9 +1250,9 @@ var BootstrapTable = {
     }
 };
 
-BootstrapTable.DEFAULTS = DEFAULTS;
-BootstrapTable.COLUMN_DEFAULTS = COLUMN_DEFAULTS;
-BootstrapTable.LOCALES = LOCALES;
+BootstrapTable.defaults = DEFAULTS;
+BootstrapTable.column_defaults = COLUMN_DEFAULTS;
+BootstrapTable.locales = LOCALES;
 
 module.exports = BootstrapTable;
 </script>

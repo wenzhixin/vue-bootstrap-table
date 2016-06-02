@@ -84,7 +84,7 @@ False to hide the table header.
 
 By default this option is set to `true`.
 
-Example: [showHeader](/examples/showHeader/)
+Example: [showHeader](/examples/showheader/)
 
 <hr>
 
@@ -105,6 +105,8 @@ Type: Boolean
 True to show card view table, for example mobile view.
 
 By default this option is set to `false`.
+
+Example: [cardView](/examples/cardview/)
 
 <hr>
 
