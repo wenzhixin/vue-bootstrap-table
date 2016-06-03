@@ -13,7 +13,7 @@ By default this option is set to `'table table-hover'`.
 
 Example: [classes](/examples/classes/)
 
-<hr>
+---
 
 #### height
 
@@ -25,7 +25,7 @@ By default this option is set to `undefined`.
 
 Example: [height](/examples/height/)
 
-<hr>
+---
 
 #### undefinedText
 
@@ -37,7 +37,7 @@ By default this option is set to `'-'`.
 
 Example: [undefinedText](/examples/undefinedtext/)
 
-<hr>
+---
 
 #### escape
 
@@ -50,7 +50,7 @@ By default this option is set to `false`.
 
 Example: [escape](/examples/escape/)
 
-<hr>
+---
 
 #### showHeader
 
@@ -62,7 +62,7 @@ By default this option is set to `true`.
 
 Example: [showHeader](/examples/showheader/)
 
-<hr>
+---
 
 #### showFooter
 
@@ -72,7 +72,7 @@ True to show the summary footer row.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### cardView
 
@@ -84,7 +84,7 @@ By default this option is set to `false`.
 
 Example: [cardView](/examples/cardview/)
 
-<hr>
+---
 
 #### locale
 
@@ -102,7 +102,7 @@ If left undefined or an empty string, uses the last locale loaded (or `'en-US'` 
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### method
 
@@ -112,7 +112,7 @@ The method type to request remote data.
 
 By default this option is set to `get`.
 
-<hr>
+---
 
 #### url
 
@@ -127,7 +127,7 @@ Note that the required server response format is different depending on whether 
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### contentType
 
@@ -137,7 +137,7 @@ The contentType of request remote data.
 
 By default this option is set to `'application/json'`.
 
-<hr>
+---
 
 #### dataType
 
@@ -147,7 +147,7 @@ The type of data that you are expecting back from the server.
 
 By default this option is set to `'json'`.
 
-<hr>
+---
 
 #### cache
 
@@ -157,7 +157,7 @@ False to disable caching of AJAX requests.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### ajax
 
@@ -167,7 +167,7 @@ A method to replace ajax call. Should implement the same API as jQuery ajax meth
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### ajaxOptions
 
@@ -177,7 +177,7 @@ Additional options for submit ajax request. List of values: http://api.jquery.co
 
 By default this option is set to `{}`.
 
-<hr>
+---
 
 #### queryParams
 
@@ -216,7 +216,7 @@ function (params) {
 }
 ```
 
-<hr>
+---
 
 #### queryParamsType
 
@@ -226,7 +226,7 @@ Set `'limit'` to send query params width RESTFul type.
 
 By default this option is set to `'limit'`.
 
-<hr>
+---
 
 #### responseHandler
 
@@ -242,7 +242,7 @@ function (res) {
 }
 ```
 
-<hr>
+---
 
 #### responseTotalField
 
@@ -252,7 +252,7 @@ The total key in response data containing total data.
 
 By default this option is set to `'total'`.
 
-<hr>
+---
 
 #### responseRowsField
 
@@ -262,7 +262,7 @@ The rows key in response data containing rows data list.
 
 By default this option is set to `'rows'`.
 
-<hr>
+---
 
 #### sortable
 
@@ -272,7 +272,7 @@ False to disable sortable of all columns.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### sortName
 
@@ -284,7 +284,7 @@ By default this option is set to `undefined`.
 
 Example: [sort](/examples/sort/)
 
-<hr>
+---
 
 #### sortOrder
 
@@ -296,7 +296,7 @@ By default this option is set to `'asc'`.
 
 Example: [sort](/examples/sort/)
 
-<hr>
+---
 
 #### sortStable
 
@@ -308,7 +308,7 @@ By default this option is set to `false`.
 
 Example: [sort](/examples/sort/)
 
-<hr>
+---
 
 #### pagination
 
@@ -318,7 +318,7 @@ True to show a pagination toolbar on table bottom.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### sidePagination
 
@@ -335,7 +335,7 @@ the `'client'` or `'server'` option is specified. See the following examples:
 
 By default this option is set to `'client'`.
 
-<hr>
+---
 
 #### onlyInfoPagination
 
@@ -345,7 +345,7 @@ True to show only the quantity of the data that is showing in the table. It need
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### pageNumber
 
@@ -355,7 +355,7 @@ When set pagination property, initialize the page number.
 
 By default this option is set to `1`.
 
-<hr>
+---
 
 #### pageSize
 
@@ -365,7 +365,7 @@ When set pagination property, initialize the page size.
 
 By default this option is set to `10`.
 
-<hr>
+---
 
 #### pageList
 
@@ -375,7 +375,7 @@ When set pagination property, initialize the page size selecting list. If you in
 
 By default this option is set to `[10, 25, 50, 100]`.
 
-<hr>
+---
 
 #### paginationPreText
 
@@ -385,7 +385,7 @@ Indicate the icon or text to be shown in the pagination detail, the previous but
 
 By default this option is set to `'&lsaquo;'`.
 
-<hr>
+---
 
 #### paginationNextText
 
@@ -395,7 +395,7 @@ Indicate the icon or text to be shown in the pagination detail, the next button.
 
 By default this option is set to `'&rsaquo;'`.
 
-<hr>
+---
 
 #### paginationVAlign
 
@@ -405,7 +405,7 @@ Indicate how to align the pagination. `'top'`, `'bottom'`, `'both'` (put the pag
 
 By default this option is set to `'bottom'`.
 
-<hr>
+---
 
 #### paginationHAlign
 
@@ -415,7 +415,7 @@ Indicate how to align the pagination. `'left'`, `'right'` can be used.
 
 By default this option is set to `'right'`.
 
-<hr>
+---
 
 #### paginationDetailHAlign
 
@@ -425,7 +425,7 @@ Indicate how to align the pagination detail. `'left'`, `'right'` can be used.
 
 By default this option is set to `'left'`.
 
-<hr>
+---
 
 #### search
 
@@ -435,7 +435,7 @@ Enable the search input.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### searchText
 
@@ -445,7 +445,7 @@ When set search property, initialize the search text.
 
 By default this option is set to `''`.
 
-<hr>
+---
 
 #### strictSearch
 
@@ -455,7 +455,7 @@ Enable the strict search.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### searchOnEnterKey
 
@@ -465,7 +465,7 @@ The search method will be executed until the Enter key is pressed.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### trimOnSearch
 
@@ -475,7 +475,7 @@ True to trim spaces in search field.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### searchTimeOut
 
@@ -485,7 +485,7 @@ Set timeout for search fire.
 
 By default this option is set to `500`.
 
-<hr>
+---
 
 #### searchAlign
 
@@ -495,7 +495,7 @@ Indicate how to align the search input. 'left', 'right' can be used.
 
 By default this option is set to `'right'`.
 
-<hr>
+---
 
 #### showPaginationSwitch
 
@@ -505,7 +505,7 @@ True to show the pagination switch button.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### showToggle
 
@@ -515,7 +515,7 @@ True to show the toggle button to toggle table / card view.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### showRefresh
 
@@ -525,7 +525,7 @@ True to show the refresh button.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### showColumns
 
@@ -535,7 +535,7 @@ True to show the columns drop down list.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### minimumCountColumns
 
@@ -545,7 +545,7 @@ The minimum number of columns to hide from the columns drop down list.
 
 By default this option is set to `1`.
 
-<hr>
+---
 
 #### buttonsAlign
 
@@ -555,7 +555,7 @@ Indicate how to align the toolbar buttons. `'left'`, `'right'` can be used.
 
 By default this option is set to `'right'`.
 
-<hr>
+---
 
 #### toolbarAlign
 
@@ -565,7 +565,7 @@ Indicate how to align the custom toolbar. `'left'`, `'right'` can be used.
 
 By default this option is set to `'left'`.
 
-<hr>
+---
 
 #### idField
 
@@ -575,7 +575,7 @@ Indicate which field is an identity field.
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### clickToSelect
 
@@ -585,7 +585,7 @@ True to select checkbox or radiobox when clicking rows.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### singleSelect
 
@@ -595,7 +595,7 @@ True to allow checkbox selecting only one row.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### selectItemName
 
@@ -605,7 +605,7 @@ The name of radio or checkbox input.
 
 By default this option is set to `'btSelectItem'`.
 
-<hr>
+---
 
 #### uniqueId
 
@@ -615,7 +615,7 @@ Indicate an unique identifier for each row.
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### checkboxHeader
 
@@ -625,7 +625,7 @@ False to hide check-all checkbox in header row.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### maintainSelected
 
@@ -635,7 +635,7 @@ True to maintain selected rows on change page and search.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### detailView
 
@@ -645,7 +645,7 @@ True to show detail view table.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### detailFormatter
 
@@ -660,7 +660,7 @@ function (index, row) {
 }
 ```
 
-<hr>
+---
 
 #### iconSize
 
@@ -675,7 +675,7 @@ Defines icon size:
 
 By default this option is set to `''`.
 
-<hr>
+---
 
 #### buttonsClass
 
@@ -685,7 +685,7 @@ Defines the Bootstrap class (added after 'btn-') of table buttons. For example: 
 
 By default this option is set to `'default'`.
 
-<hr>
+---
 
 #### iconsPrefix
 
@@ -695,7 +695,7 @@ Defines icon set name (`'glyphicon'` or `'fa'` for FontAwesome).
 
 By default this option is set to `'glyphicon'`.
 
-<hr>
+---
 
 #### icons
 
@@ -716,7 +716,7 @@ By default this option is set to:
 }
 ```
 
-<hr>
+---
 
 #### rowStyle
 
@@ -744,7 +744,7 @@ function (row, index) {
 }
 ```
 
-<hr>
+---
 
 #### footerStyle
 
