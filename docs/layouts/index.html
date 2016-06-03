@@ -25,7 +25,7 @@
 
 <body>
     <div id="app" class="container">
-        <bootstrap-table :options="options">
+        <bootstrap-table :columns="columns" :options="options">
             <div>
                 <a href="https://github.com/wenzhixin/vue-bootstrap-table" target="_blank">GitHub</a>
                 <a class="ml20" href="/documentation" target="_blank">Documentation</a>
@@ -38,6 +38,7 @@
     <script src="assets/bootstrap/js/bootstrap.js"></script>
     <script src="assets/vue.js"></script>
     <script src="/dist/vue-bootstrap-table.js"></script>
+    <!-- <script src="/dist/locales/bootstrap-table-zh-CN.js"></script> -->
     <script>
         window.vm = new Vue({
             el: '#app',
@@ -45,6 +46,64 @@
                 'bootstrap-table': BootstrapTable
             },
             data: {
+                columns: [
+                    [{
+                        field: 'state',
+                        checkbox: true,
+                        rowspan: 2,
+                        align: 'center',
+                        valign: 'middle'
+                    }, {
+                        title: 'Item ID',
+                        field: 'id',
+                        rowspan: 2,
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        title: 'Item Detail',
+                        colspan: 3,
+                        align: 'center'
+                    }],
+                    [{
+                        field: 'name',
+                        title: 'Item Name',
+                        sortable: true,
+                        editable: true,
+                        align: 'center'
+                    }, {
+                        field: 'price',
+                        title: 'Item Price',
+                        sortable: true,
+                        align: 'center'
+                    }, {
+                        field: 'operate',
+                        title: 'Item Operate',
+                        align: 'center',
+                        clickToSelect: false,
+                        events: {
+                            'click .like': function(e, value, row, index) {
+                                alert('You click like action, row: ' + JSON.stringify(row));
+                            },
+                            'click .remove': function(e, value, row, index) {
+                                $table.bootstrapTable('remove', {
+                                    field: 'id',
+                                    values: [row.id]
+                                });
+                            }
+                        },
+                        formatter: function(value, row, index) {
+                            return [
+                                '<a class="like" href="javascript:void(0)" title="Like">',
+                                '<i class="glyphicon glyphicon-heart"></i>',
+                                '</a>  ',
+                                '<a class="remove" href="javascript:void(0)" title="Remove">',
+                                '<i class="glyphicon glyphicon-remove"></i>',
+                                '</a>'
+                            ].join('');
+                        }
+                    }]
+                ],
                 options: {
                     pagination: true,
                     showPaginationSwitch: true,
@@ -55,65 +114,7 @@
                     clickToSelect: true,
                     maintainSelected: true,
                     minimumCountColumns: 2,
-                    url: '/json/data1.json',
-                    columns: [
-                        [{
-                            field: 'state',
-                            checkbox: true,
-                            rowspan: 2,
-                            align: 'center',
-                            valign: 'middle'
-                        }, {
-                            title: 'Item ID',
-                            field: 'id',
-                            rowspan: 2,
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
-                        }, {
-                            title: 'Item Detail',
-                            colspan: 3,
-                            align: 'center'
-                        }],
-                        [{
-                            field: 'name',
-                            title: 'Item Name',
-                            sortable: true,
-                            editable: true,
-                            align: 'center'
-                        }, {
-                            field: 'price',
-                            title: 'Item Price',
-                            sortable: true,
-                            align: 'center'
-                        }, {
-                            field: 'operate',
-                            title: 'Item Operate',
-                            align: 'center',
-                            clickToSelect: false,
-                            events: {
-                                'click .like': function(e, value, row, index) {
-                                    alert('You click like action, row: ' + JSON.stringify(row));
-                                },
-                                'click .remove': function(e, value, row, index) {
-                                    $table.bootstrapTable('remove', {
-                                        field: 'id',
-                                        values: [row.id]
-                                    });
-                                }
-                            },
-                            formatter: function(value, row, index) {
-                                return [
-                                    '<a class="like" href="javascript:void(0)" title="Like">',
-                                    '<i class="glyphicon glyphicon-heart"></i>',
-                                    '</a>  ',
-                                    '<a class="remove" href="javascript:void(0)" title="Remove">',
-                                    '<i class="glyphicon glyphicon-remove"></i>',
-                                    '</a>'
-                                ].join('');
-                            }
-                        }]
-                    ]
+                    url: '/json/data1.json'
                 }
             }
         });

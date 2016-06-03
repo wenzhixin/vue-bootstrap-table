@@ -1,5 +1,5 @@
 ---
-title: Table Column Options
+title: Column Options
 weight: 10
 ---
 

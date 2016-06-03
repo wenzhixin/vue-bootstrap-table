@@ -30,3 +30,7 @@ I am trying on implementing [bootstrap-table](https://github.com/wenzhixin/boots
 * Powerful pagination
 * Card view
 * Localization
+
+## jsFiddle
+
+https://jsfiddle.net/wenyi/nhog9hxb/

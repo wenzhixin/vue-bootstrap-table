@@ -5,7 +5,7 @@ weight: 10
 
 ```html
 <div id="table">
-    <bootstrap-table :options="options"></bootstrap-table>
+    <bootstrap-table :columns="columns" :options="options"></bootstrap-table>
 </div>
 ```
 
@@ -16,22 +16,22 @@ new Vue({
         'bootstrap-table': BootstrapTable
     },
     data: {
+        columns: [
+            {
+                title: 'Item ID',
+                field: 'id'
+            },
+            {
+                field: 'name',
+                title: 'Item Name'
+            }, {
+                field: 'price',
+                title: 'Item Price'
+            }
+        ],
         options: {
             height: 240,
-            url: '/json/data0.json',
-            columns: [
-                {
-                    title: 'Item ID',
-                    field: 'id'
-                },
-                {
-                    field: 'name',
-                    title: 'Item Name'
-                }, {
-                    field: 'price',
-                    title: 'Item Price'
-                }
-            ]
+            url: '/json/data0.json'
         }
     }
 });

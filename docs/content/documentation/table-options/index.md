@@ -3,30 +3,6 @@ title: Table Options
 weight: 5
 ---
 
-#### columns
-
-Type: Array
-
-The table columns config object, see [column options](documentation/column-options) for more details.
-
-By default this option is set to `[[]]`.
-
-Example: [data](/examples/data/)
-
-<hr>
-
-#### data
-
-Type: Array
-
-The data to be loaded.
-
-By default this option is set to `[]`.
-
-Example: [data](/examples/data/)
-
-<hr>
-
 #### classes
 
 Type: String
