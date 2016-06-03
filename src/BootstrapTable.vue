@@ -33,7 +33,7 @@
                     <i class="{{options.iconsPrefix}} {{options.icons.columns}}"></i> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li v-for="(i, column) in columns" v-on:click.stop>
+                    <li v-for="(i, column) in fieldColumns" v-on:click.stop>
                         <label v-if="!(column.radio || column.checkbox || options.cardView && !column.cardVisible)">
                             <input type="checkbox" data-field="{{column.filed}}"
                                 :disabled="toggleColumnsCount <= options.minimumCountColumns && column.visible"
@@ -54,7 +54,7 @@
         <div class="fixed-table-header" v-if="options.showHeader && !options.cardView && options.height">
             <table class="{{options.classes}}">
                 <thead>
-                    <tr v-for="_columns in options.columns">
+                    <tr v-for="_columns in columns">
                         <th v-if="!options.cardView && options.detailView"
                             class="detail" rowspan="columns.length">
                             <div class="fht-cell"></div>
@@ -96,7 +96,7 @@
             </div>
             <table class="{{options.classes}}">
                 <thead v-if="options.showHeader && !options.cardView && !options.height">
-                    <tr v-for="_columns in options.columns">
+                    <tr v-for="_columns in columns">
                         <th v-if="!options.cardView && options.detailView"
                             class="detail" rowspan="columns.length">
                             <div class="fht-cell"></div>
@@ -143,16 +143,16 @@
                         <td colspan="{{header.fields.length}}">
                             <div class="card-views">
                                 <div v-for="(j, field) in header.fields" class="card-view"
-                                    v-bind:class="columns[j].class">
-                                    <template v-if="!(!columns[j].visible || options.cardView && !columns[j].cardVisible)">
-                                        <input v-if="columns[j].checkbox || columns[j].radio"
+                                    v-bind:class="fieldColumns[j].class">
+                                    <template v-if="!(!fieldColumns[j].visible || options.cardView && !fieldColumns[j].cardVisible)">
+                                        <input v-if="fieldColumns[j].checkbox || fieldColumns[j].radio"
                                             name="{{options.selectItemName}}"
                                             v-bind:value="item" v-model="selected.items"
                                             v-on:change="onCheckItemChange(item)"
-                                            v-bind:type="columns[j].checkbox ? 'checkbox' : 'radio'">
+                                            v-bind:type="fieldColumns[j].checkbox ? 'checkbox' : 'radio'">
                                         <div v-else class="card-view">
                                             <span v-if="options.showHeader" class="title">
-                                                {{columns[j].title}}
+                                                {{fieldColumns[j].title}}
                                             </span>
                                             <span class="value">
                                                 {{{item[field]}}}
@@ -166,17 +166,17 @@
 
                         <template v-else>
                             <template v-for="(j, field) in header.fields">
-                                <template v-if="!(!columns[j].visible || options.cardView && !columns[j].cardVisible)">
-                                    <td v-if="columns[j].checkbox || columns[j].radio"
-                                        class="bs-checkbox" v-bind:class="columns[j].class">
+                                <template v-if="!(!fieldColumns[j].visible || options.cardView && !fieldColumns[j].cardVisible)">
+                                    <td v-if="fieldColumns[j].checkbox || fieldColumns[j].radio"
+                                        class="bs-checkbox" v-bind:class="fieldColumns[j].class">
                                         <input name="{{options.selectItemName}}"
                                         v-bind:value="item" v-model="selected.items"
                                         v-on:change="onCheckItemChange(item)"
-                                        v-bind:type="columns[j].checkbox ? 'checkbox' : 'radio'">
+                                        v-bind:type="fieldColumns[j].checkbox ? 'checkbox' : 'radio'">
                                     </td>
                                     <td v-else
-                                        v-on:click="onTdClick(item, columns[j].field, $event)"
-                                        v-on:dblclick="onTdClick(item, columns[j].field, $event)">
+                                        v-on:click="onTdClick(item, fieldColumns[j].field, $event)"
+                                        v-on:dblclick="onTdClick(item, fieldColumns[j].field, $event)">
                                         {{{item[field]}}}
                                     </td>
                                 </template>
@@ -396,8 +396,6 @@ var checkAllIndexOf = function (type, items, data, from, to) {
 };
 
 var DEFAULTS = {
-    columns: [[]],
-    data: [],
     classes: 'table table-hover',
     height: undefined,
     undefinedText: '-',
@@ -561,6 +559,15 @@ $.extend(DEFAULTS, LOCALES['en-US']);
 
 var BootstrapTable = {
     props: {
+        columns: {
+            type: Array,
+            required: true,
+            default: function () { return []; }
+        },
+        data: {
+            type: Array,
+            default: function () { return []; }
+        },
         options: {
             type: Object,
             default: function () { return DEFAULTS; }
@@ -568,8 +575,7 @@ var BootstrapTable = {
     },
     data: function () {
         return {
-            data: {},
-            columns: {},
+            fieldColumns: {},
             header: {},
             pageFrom: 1,
             pageTo: 1,
@@ -589,7 +595,6 @@ var BootstrapTable = {
     created: function () {
         this.initTable();
         this.initHeader();
-        this.initData();
         this.initPagination();
         this.initBody();
         this.initServer();
@@ -601,10 +606,10 @@ var BootstrapTable = {
         },
         toggleColumnsCount: function () {
             var count = 0;
-            for (var i in this.columns) {
-                if (!(this.columns[i].radio || this.columns[i].checkbox ||
-                        this.options.cardView && !this.columns[i].cardVisible) &&
-                        this.columns[i].visible) {
+            for (var i in this.fieldColumns) {
+                if (!(this.fieldColumns[i].radio || this.fieldColumns[i].checkbox ||
+                        this.options.cardView && !this.fieldColumns[i].cardVisible) &&
+                        this.fieldColumns[i].visible) {
                     count++;
                 }
             }
@@ -631,7 +636,7 @@ var BootstrapTable = {
 
                 that.header.fields.forEach(function (field, j) {
                     var value = getItemField(item, field, that.options.escape),
-                        column = that.columns[j];
+                        column = that.fieldColumns[j];
 
                     value = calculateObjectValue(column,
                         that.header.formatters[j], [value, item, i], value);
@@ -645,6 +650,40 @@ var BootstrapTable = {
             } else {
                 this.selected.all = checkAllIndexOf(this.selected.type,
                     this.selected.items, this.data, this.pageFrom - 1, this.pageTo);
+            }
+
+            if (this.options.sidePagination !== 'server') {
+                var s = this.searchText && (this.options.escape ?
+                    escapeHTML(this.searchText) : this.searchText).toLowerCase();
+
+                data = s ? $.grep(data, function (item, i) {
+                    for (var key in item) {
+                        key = $.isNumeric(key) ? parseInt(key, 10) : key;
+                        var value = item[key],
+                            column = that.fieldColumns[getFieldIndex(that.fieldColumns, key)],
+                            j = $.inArray(key, that.header.fields);
+
+                        // Fix #142: search use formatted data
+                        if (column && column.searchFormatted) {
+                            value = calculateObjectValue(column,
+                                that.header.formatters[j], [value, item, i], value);
+                        }
+
+                        var index = $.inArray(key, that.header.fields);
+                        if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
+                            if (that.options.strictSearch) {
+                                if ((value + '').toLowerCase() === s) {
+                                    return true;
+                                }
+                            } else {
+                                if ((value + '').toLowerCase().indexOf(s) !== -1) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    return false;
+                }) : data;
             }
             this.$nextTick(function () {
                 var $el = $(this.$el);
@@ -715,7 +754,7 @@ var BootstrapTable = {
             return info;
         },
         columnsLength: function () {
-            return Object.keys(this.columns).length;
+            return Object.keys(this.fieldColumns).length;
         }
     },
     methods: {
@@ -724,11 +763,11 @@ var BootstrapTable = {
                 columns = {};
 
             this.options = $.extend({}, DEFAULTS, this.options);
-            if (!Array.isArray(this.options.columns[0])) {
-                this.options.columns = [this.options.columns];
+            if (!Array.isArray(this.columns[0])) {
+                this.columns = [this.columns];
             }
-            setFieldIndex(this.options.columns);
-            this.options.columns.forEach(function (_columns, i) {
+            setFieldIndex(this.columns);
+            this.columns.forEach(function (_columns, i) {
                 _columns.forEach(function (column, j) {
                     column = $.extend({}, COLUMN_DEFAULTS, column);
 
@@ -736,10 +775,10 @@ var BootstrapTable = {
                         columns[column.fieldIndex] = column;
                     }
 
-                    that.options.columns[i][j] = column;
+                    that.columns[i][j] = column;
                 });
             });
-            this.columns = columns;
+            this.fieldColumns = columns;
             this.searchText = this.options.searchText;
             this.timeoutId = 0;
         },
@@ -758,7 +797,7 @@ var BootstrapTable = {
                 cellStyles: [],
                 searchables: []
             };
-            this.options.columns.forEach(function (columns, i) {
+            this.columns.forEach(function (columns, i) {
                 columns.forEach(function (column, j) {
                     var halign = '', // header align style
                         align = '', // body align style
@@ -814,29 +853,6 @@ var BootstrapTable = {
                     }
                 });
             });
-        },
-        initData: function (data, type) {
-            if (type === 'append') {
-                this.data = this.data.concat(data);
-            } else if (type === 'prepend') {
-                this.data = [].concat(data).concat(this.data);
-            } else {
-                this.data = data || this.options.data;
-            }
-
-            // Fix #839 Records deleted when adding new row on filtered table
-            if (type === 'append') {
-                this.options.data = this.options.data.concat(data);
-            } else if (type === 'prepend') {
-                this.options.data = [].concat(data).concat(this.options.data);
-            } else {
-                this.options.data = this.data;
-            }
-
-            if (this.options.sidePagination === 'server') {
-                return;
-            }
-            this.initSort();
         },
         onSort: function (column) {
             if (!this.options.sortable || !column.sortable) {
@@ -950,58 +966,8 @@ var BootstrapTable = {
             this.options.searchText = this.searchText;
 
             this.options.pageNumber = 1;
-            this.initSearch();
             this.updatePagination();
             this.trigger('search', this.searchText);
-        },
-        initSearch: function () {
-            var that = this;
-
-            if (this.options.sidePagination !== 'server') {
-                var s = this.searchText && (this.options.escape ?
-                    escapeHTML(this.searchText) : this.searchText).toLowerCase();
-                var f = $.isEmptyObject(this.filterColumns) ? null : this.filterColumns;
-
-                // Check filter
-                this.data = f ? this.options.data.filter(function (item, i) {
-                    for (var key in f) {
-                        if (Array.isArray(f[key]) && f[key].indexOf(item[key]) === -1 ||
-                                item[key] !== f[key]) {
-                            return false;
-                        }
-                    }
-                    return true;
-                }) : this.options.data;
-
-                this.data = s ? $.grep(this.data, function (item, i) {
-                    for (var key in item) {
-                        key = $.isNumeric(key) ? parseInt(key, 10) : key;
-                        var value = item[key],
-                            column = that.columns[getFieldIndex(that.columns, key)],
-                            j = $.inArray(key, that.header.fields);
-
-                        // Fix #142: search use formatted data
-                        if (column && column.searchFormatted) {
-                            value = calculateObjectValue(column,
-                                that.header.formatters[j], [value, item, i], value);
-                        }
-
-                        var index = $.inArray(key, that.header.fields);
-                        if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
-                            if (that.options.strictSearch) {
-                                if ((value + '').toLowerCase() === s) {
-                                    return true;
-                                }
-                            } else {
-                                if ((value + '').toLowerCase().indexOf(s) !== -1) {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }) : this.data;
-            }
         },
         togglePagination: function () {
             this.options.pagination = !this.options.pagination;
@@ -1122,7 +1088,7 @@ var BootstrapTable = {
             }
         },
         onTdClick: function (item, field, e) {
-            var column = this.columns[getFieldIndex(this.columns, field)],
+            var column = this.fieldColumns[getFieldIndex(this.fieldColumns, field)],
                 value = getItemField(item, field, this.options.escape);
 
             this.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item);
@@ -1201,7 +1167,7 @@ var BootstrapTable = {
                     JSON.stringify(data) : data,
                 cache: this.options.cache,
                 contentType: this.options.contentType,
-                dataType: this.options.dataType,
+                dataType: this.dataType,
                 success: function (res) {
                     res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
 
@@ -1235,9 +1201,9 @@ var BootstrapTable = {
                 fixedScroll = data.fixedScroll;
                 data = data.data;
             }
+            this.data = data;
 
-            this.initData(data);
-            this.initSearch();
+            this.initSort();
             this.initPagination();
             this.initBody(fixedScroll);
         },
