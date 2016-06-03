@@ -33,4 +33,4 @@ I am trying on implementing [bootstrap-table](https://github.com/wenzhixin/boots
 
 ## jsFiddle
 
-https://jsfiddle.net/wenyi/nhog9hxb/
+https://jsfiddle.net/wenyi/nhog9hxb/1/
