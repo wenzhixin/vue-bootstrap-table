@@ -11,7 +11,7 @@ The column field name.
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### title
 
@@ -21,7 +21,7 @@ The column title text.
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### titleTooltip
 
@@ -31,7 +31,7 @@ The column title tooltip text. This option also support the title HTML attribute
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### width
 
@@ -41,7 +41,7 @@ The width of column. If not defined, the width will auto expand to fit its conte
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### class
 
@@ -51,7 +51,7 @@ The column class name.
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### rowspan
 
@@ -61,7 +61,7 @@ Indicate how many rows a cell should take up.
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### colspan
 
@@ -71,7 +71,7 @@ Indicate how many columns a cell should take up.
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### align
 
@@ -81,7 +81,7 @@ Indicate how to align the column data. `'left'`, `'right'`, `'center'` can be us
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### halign
 
@@ -91,7 +91,7 @@ Indicate how to align the table header. `'left'`, `'right'`, `'center'` can be u
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### falign
 
@@ -101,7 +101,7 @@ Indicate how to align the table footer. `'left'`, `'right'`, `'center'` can be u
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### valign
 
@@ -111,7 +111,7 @@ Indicate how to align the cell data. `'top'`, `'middle'`, `'bottom'` can be used
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### radio
 
@@ -121,7 +121,7 @@ True to show a radio. The radio column has fixed width.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### checkbox
 
@@ -131,7 +131,7 @@ True to show a checkbox. The checkbox column has fixed width.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### clickToSelect
 
@@ -141,7 +141,7 @@ True to select checkbox or radio when the column is clicked.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### visible
 
@@ -151,7 +151,7 @@ False to hide the columns item.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### switchable
 
@@ -161,7 +161,7 @@ False to disable the switchable of columns item.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### searchable
 
@@ -171,7 +171,7 @@ True to search data for this column.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### searchFormatted
 
@@ -181,7 +181,7 @@ True to search use formatted data.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### cardVisible
 
@@ -191,7 +191,7 @@ False to hide the columns item in card view state.
 
 By default this option is set to `true`.
 
-<hr>
+---
 
 #### formatter
 
@@ -207,7 +207,7 @@ The context (this) is the column Object.
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### footerFormatter
 
@@ -221,7 +221,7 @@ The function should return a string with the text to show in the footer cell. Th
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### events
 
@@ -249,7 +249,7 @@ var operateEvents = {
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### sortable
 
@@ -259,7 +259,7 @@ True to allow the column can be sorted.
 
 By default this option is set to `false`.
 
-<hr>
+---
 
 #### order
 
@@ -269,7 +269,7 @@ The default sort order, can only be `'asc'` or `'desc'`.
 
 By default this option is set to `'asc'`.
 
-<hr>
+---
 
 #### sorter
 
@@ -282,7 +282,7 @@ The custom field sort function that used to do local sorting, take two parameter
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### sortName
 
@@ -294,7 +294,7 @@ of the column. For example, a column might display the value of fieldName of "ht
 
 By default this option is set to `undefined`.
 
-<hr>
+---
 
 #### cellStyle
 

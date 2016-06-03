@@ -13,7 +13,7 @@ By default this option is set to `[[]]`.
 
 Example: [data](/examples/data/)
 
-<hr>
+---
 
 #### data
 
@@ -25,7 +25,7 @@ By default this option is set to `[]`.
 
 Example: [data](/examples/data/)
 
-<hr>
+---
 
 #### options
 
