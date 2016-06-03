@@ -202,6 +202,7 @@
                     </template>
                 </span>
                 <span v-if="!options.onlyInfoPagination" class="page-list">
+                    {{options.formatRecordsPerPage('pageNumber').split('pageNumber')[0]}}
                     <span class="btn-group {{options.paginationVAlign == 'top' || options.paginationVAlign == 'both' ? 'dropdown' : 'dropup'}}">
                         <button type="button" class="btn btn-{{options.buttonsClass}} btn-{{options.iconSize}} dropdown-toggle" data-toggle="dropdown">
                             <span class="page-size">
@@ -215,7 +216,7 @@
                                 <a href="javascript:">{{page}}</a>
                             </li>
                         </ul>
-                    </span> {{options.formatRecordsPerPage('')}}
+                    </span> {{options.formatRecordsPerPage('pageNumber').split('pageNumber')[1]}}
                 </span>
             </div>
             <div v-if="totalPages > 1" class="pull-{{options.paginationHAlign}} pagination">
