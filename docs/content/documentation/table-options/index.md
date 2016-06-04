@@ -102,6 +102,8 @@ If left undefined or an empty string, uses the last locale loaded (or `'en-US'` 
 
 By default this option is set to `undefined`.
 
+Example: [locale](/examples/locale/)
+
 ---
 
 #### method

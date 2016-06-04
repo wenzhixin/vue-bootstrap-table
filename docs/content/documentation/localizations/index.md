@@ -93,4 +93,4 @@ We can import [all locale files](https://github.com/wenzhixin/vue-bootstrap-tabl
 ...
 ```
 
-And then use `options.locale` to set locale: Example.
+And then use `options.locale` to set locale: [Example](/examples/locale/).
