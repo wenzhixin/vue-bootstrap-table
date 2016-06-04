@@ -253,6 +253,7 @@
             </div>
         </div>
     </div>
+    <div class="clearfix"></div>
 </div>
 </template>
 
@@ -594,6 +595,7 @@ var BootstrapTable = {
         };
     },
     created: function () {
+        this.initLocale();
         this.initTable();
         this.initHeader();
         this.initPagination();
@@ -759,6 +761,24 @@ var BootstrapTable = {
         }
     },
     methods: {
+        initLocale: function () {
+            if (!this.options.locale) {
+                return;
+            }
+            var parts = this.options.locale.split(/-|_/);
+            parts[0].toLowerCase();
+            if (parts[1]) parts[1].toUpperCase();
+            if (BootstrapTable.locales[this.options.locale]) {
+                // locale as requested
+                $.extend(this.options, BootstrapTable.locales[this.options.locale]);
+            } else if (BootstrapTable.locales[parts.join('-')]) {
+                // locale with sep set to - (in case original was specified with _)
+                $.extend(this.options, BootstrapTable.locales[parts.join('-')]);
+            } else if (BootstrapTable.locales[parts[0]]) {
+                // short locale language code (i.e. 'en')
+                $.extend(this.options, BootstrapTable.locales[parts[0]]);
+            }
+        },
         initTable: function () {
             var that = this,
                 columns = {};
