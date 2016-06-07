@@ -155,7 +155,7 @@
                                                 {{fieldColumns[j].title}}
                                             </span>
                                             <span class="value">
-                                                {{{item[field]}}}
+                                                {{{item | fieldValue field i j}}}
                                             </span>
                                         </div>
                                     </template>
@@ -177,7 +177,7 @@
                                     <td v-else
                                         v-on:click="onTdClick(item, fieldColumns[j].field, $event)"
                                         v-on:dblclick="onTdClick(item, fieldColumns[j].field, $event)">
-                                        {{{item[field]}}}
+                                        {{{item | fieldValue field i j}}}
                                     </td>
                                 </template>
                             </template>
@@ -636,15 +636,6 @@ var BootstrapTable = {
                 }
                 item.style = style;
                 item.csses = csses;
-
-                that.header.fields.forEach(function (field, j) {
-                    var value = getItemField(item, field, that.options.escape),
-                        column = that.fieldColumns[j];
-
-                    value = calculateObjectValue(column,
-                        that.header.formatters[j], [value, item, i], value);
-                    item[field] = value;
-                });
             });
 
             if (!this.options.maintainSelected) {
@@ -1233,6 +1224,15 @@ var BootstrapTable = {
 
             name += '.bs.table';
             console.log(name, args);
+        }
+    },
+    filters: {
+        fieldValue: function (item, field, i, j) {
+            var value = getItemField(item, field, this.options.escape),
+                column = this.fieldColumns[j];
+
+            return calculateObjectValue(column,
+                this.header.formatters[j], [value, item, i], value);
         }
     }
 };
