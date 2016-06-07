@@ -72,9 +72,11 @@
                                 v-bind:class="[{sortable: options.sortable && column.sortable}, options.sortName == column.field ? options.sortOrder : 'both']"
                                 v-on:click="onSort(column)"
                                 v-on:keypress.enter="onSort(column)">
-                                <template v-if="column.checkbox">
-                                <input name="btSelectAll" type="checkbox" v-model="selected.all" v-on:change="onCheckAllChange">
-                                </template>
+
+                                <input v-if="column.checkbox && !options.singleSelect && options.checkboxHeader"
+                                    name="btSelectAll" type="checkbox" v-model="selected.all"
+                                    v-on:change="onCheckAllChange">
+
                                 <template v-if="!column.checkbox && !column.radio">
                                 {{column.title}}
                                 </template>
@@ -114,9 +116,11 @@
                                 v-bind:class="[{sortable: options.sortable && column.sortable}, options.sortName == column.field ? options.sortOrder : 'both']"
                                 v-on:click="onSort(column)"
                                 v-on:keypress.enter="onSort(column)">
-                                <template v-if="column.checkbox">
-                                <input name="btSelectAll" type="checkbox" v-model="selected.all" v-on:change="onCheckAllChange">
-                                </template>
+
+                                <input v-if="column.checkbox && !options.singleSelect && options.checkboxHeader"
+                                    name="btSelectAll" type="checkbox" v-model="selected.all"
+                                    v-on:change="onCheckAllChange">
+
                                 <template v-if="!column.checkbox && !column.radio">
                                 {{column.title}}
                                 </template>
