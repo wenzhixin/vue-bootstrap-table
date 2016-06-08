@@ -85,10 +85,7 @@
                                 alert('You click like action, row: ' + JSON.stringify(row));
                             },
                             'click .remove': function(e, value, row, index) {
-                                $table.bootstrapTable('remove', {
-                                    field: 'id',
-                                    values: [row.id]
-                                });
+                                alert('You click delete action, row: ' + JSON.stringify(row));
                             }
                         },
                         formatter: function(value, row, index) {

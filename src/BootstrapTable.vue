@@ -133,6 +133,7 @@
                 <tbody>
                     <tr v-for="(i, item) in renderData"
                         v-bind:class="class"
+                        data-index="{{i}}"
                         data-uniqueid="{{item[options.uniqueId]}}">
 
                         <template v-if="!options.cardView && options.detailView">
@@ -683,10 +684,9 @@ var BootstrapTable = {
                     return false;
                 }) : data;
             }
-            this.$nextTick(function () {
-                var $el = $(this.$el);
-                that.view.headerHeight = $el.find('thead:visible').height();
-            });
+
+            this._renderData = data;
+            this.$nextTick(this.resetView);
             return data;
         },
         pageInfo: function () {
@@ -1225,6 +1225,62 @@ var BootstrapTable = {
             this.initSort();
             this.initPagination();
             this.initBody(fixedScroll);
+        },
+        getVisibleFields: function () {
+            var that = this,
+                visibleFields = [];
+
+            this.header.fields.forEach(function (field) {
+                var column = that.fieldColumns[getFieldIndex(that.fieldColumns, field)];
+
+                if (!column.visible) {
+                    return;
+                }
+                visibleFields.push(field);
+            });
+            return visibleFields;
+        },
+        resetView: function () {
+            var that = this,
+                $el = $(this.$el);
+
+            this.view.headerHeight = $el.find('thead:visible').height();
+
+            this.header.events.forEach(function (events, i) {
+                if (!events) {
+                    return;
+                }
+                // if events is defined with namespace
+                if (typeof events === 'string') {
+                    events = calculateObjectValue(null, events);
+                }
+
+                var field = that.header.fields[i],
+                    fieldIndex = that.getVisibleFields().indexOf(field);
+
+                if (that.options.detailView && !that.options.cardView) {
+                    fieldIndex += 1;
+                }
+
+                for (var key in events) {
+                    $el.find('tbody >tr:not(.no-records-found)').each(function () {
+                        var $tr = $(this),
+                            $td = $tr.find(that.options.cardView ? '.card-view' : 'td').eq(fieldIndex),
+                            index = key.indexOf(' '),
+                            name = key.substring(0, index),
+                            el = key.substring(index + 1),
+                            func = events[key];
+
+                        $td.find(el).off(name).on(name, function (e) {
+                            var index = $tr.data('index'),
+                                row = that._renderData[index],
+                                value = row[field];
+
+                            func.apply(this, [e, value, row, index]);
+                        });
+                    });
+                }
+            });
         },
         trigger: function (name) {
             var args = Array.prototype.slice.call(arguments, 1);
