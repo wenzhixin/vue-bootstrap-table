@@ -1911,7 +1911,11 @@ var BootstrapTable = {
             if (this.selected.type === 'radio') {
                 this.trigger('check', item);
             } else {
-                this.trigger(this.selected.items.indexOf(item) > -1 ? 'check' : 'uncheck', item);
+                var selected = this.selected.items.indexOf(item) > -1;
+                if (this.options.singleSelect) {
+                    this.selected.items = selected ? [item] : [];
+                }
+                this.trigger(selected ? 'check' : 'uncheck', item);
             }
         },
         onTdClick: function onTdClick(item, field, e) {
